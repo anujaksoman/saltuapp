@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:saltuapp/controller/home_controller.dart';
 import 'package:saltuapp/view/widget/about_widget.dart';
 import 'package:saltuapp/view/widget/character_widget.dart';
 import 'package:saltuapp/view/widget/legends_widget.dart';
@@ -13,6 +15,7 @@ class MyDesktopBody extends StatefulWidget {
 
 class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateMixin{
   late TabController tabController ;
+  final HomeController homeController = Get.put(HomeController());
   @override
   void initState() {
     // TODO: implement initState
@@ -55,8 +58,13 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             Text('Home',style: TextStyle(color: Colors.white),),
-             Text('Refresh',style: TextStyle(color: Colors.black),)
+            Text('Home',style: TextStyle(color: Colors.white),),
+            GestureDetector(
+                onTap: (){
+                  homeController.searchTextController.text = "";
+                  homeController.getCharacterDetails();
+                },
+                child: Text('Refresh',style: TextStyle(color: Colors.white,fontSize: 14),))
           ],
         ),
         backgroundColor: Colors.blue,
