@@ -27,6 +27,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               setState(() {
                 homeController.selectDropSeriesValue = newValue;
               });
+              homeController.getSearchCharacterDetails();
               print("value= $newValue");
             },
             hint: const Text("Series"),
@@ -50,6 +51,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               setState(() {
                 homeController.selectDropClassValue = newValue;
               });
+              homeController.getSearchCharacterDetails();
               print("value= $newValue");
             },
             hint: const Text("Class"),

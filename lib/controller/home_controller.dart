@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saltuapp/data/model/characterModel.dart';
+import 'package:saltuapp/data/model/characterModel.dart' as ch;
 import 'package:saltuapp/data/model/legendModel.dart';
 import 'package:saltuapp/data/repository/homeRepository.dart';
 
@@ -10,6 +10,7 @@ class HomeController extends GetxController {
 
   List<dynamic> seriesList = [];
   List<dynamic> classList = [];
+
 
   TextEditingController searchTextController = TextEditingController();
   String selectDropSeriesValue = "";
@@ -42,17 +43,20 @@ class HomeController extends GetxController {
   }
 
   HomeRepository repository = HomeRepository();
-  Rx<CharacterModel> characterData = CharacterModel().obs;
+  Rx<ch.CharacterModel> characterData = ch.CharacterModel().obs;
   Rx<LegendModel> legendData = LegendModel().obs;
   Rx<LegendModel> aboutData = LegendModel().obs;
+  RxList<ch.Character> characterList = <ch.Character>[].obs;
 
   Future<void> getCharacterDetails() async {
+    characterList.value = [];
     characterLoading.value = true;
     var result = await repository.getCharacterDetails();
     try {
       if (result.runtimeType.toString() == 'CharacterModel') {
-        CharacterModel data = result;
+        ch.CharacterModel data = result;
         characterData.value = data;
+        characterList.value = characterData.value.characters!;
 
         characterData.value.characters!.forEach((element) {
           if (!seriesList.contains(element.series)) {
@@ -119,5 +123,32 @@ class HomeController extends GetxController {
       debugPrint("catch error $e");
     }
     aboutLoading.value = false;
+  }
+
+  Future<void> getSearchCharacterDetails() async {
+    characterList.value = [];
+    characterLoading.value = true;
+    var result = await repository.getCharacterDetails();
+    try {
+      if (result.runtimeType.toString() == 'CharacterModel') {
+        ch.CharacterModel data = result;
+        characterData.value = data;
+        characterData.value.characters!.forEach((element) {
+          print("${searchTextController.text}  ${selectDropSeriesValue} ${selectDropClassValue}");
+          if (element.name.contains(searchTextController.text) && element.series.contains(selectDropSeriesValue) && element.characterClass.contains(selectDropClassValue))
+           {
+             characterList.add(element);
+           }
+        });
+        characterLoading.value = false;
+        update();
+      } else {
+        print("Error Occured");
+        characterLoading.value = false;
+      }
+    } catch (e) {
+      debugPrint("catch error $e");
+    }
+    characterLoading.value = false;
   }
 }

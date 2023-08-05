@@ -13,6 +13,9 @@ class SearchWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
         controller: homeController.searchTextController,
+        onFieldSubmitted: (val){
+          homeController.getSearchCharacterDetails();
+        },
 
         decoration: InputDecoration(
             filled: true,

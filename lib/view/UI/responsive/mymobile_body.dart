@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:saltuapp/controller/home_controller.dart';
 import 'package:saltuapp/view/widget/about_widget.dart';
 import 'package:saltuapp/view/widget/character_widget.dart';
 import 'package:saltuapp/view/widget/legends_widget.dart';
@@ -14,6 +16,8 @@ class MyMobileBody extends StatefulWidget {
 }
 
 class _MyMobileBodyState extends State<MyMobileBody> with TickerProviderStateMixin{
+
+  final HomeController homeController = Get.put(HomeController());
 
   late TabController tabController ;
   @override
@@ -53,7 +57,18 @@ class _MyMobileBodyState extends State<MyMobileBody> with TickerProviderStateMix
               ],
             )
         ),
-        title: const Text('Home',style: TextStyle(color: Colors.white),),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Home',style: TextStyle(color: Colors.white),),
+            GestureDetector(
+              onTap: (){
+                homeController.searchTextController.text = "";
+                homeController.getCharacterDetails();
+              },
+                child: Text('Refresh',style: TextStyle(color: Colors.white,fontSize: 14),))
+          ],
+        ),
         backgroundColor: Colors.blue,
       ),
       body: TabBarView(

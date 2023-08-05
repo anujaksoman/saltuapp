@@ -24,16 +24,15 @@ class CharacterWidget extends StatelessWidget {
                 Expanded(
                     flex: 6,
                     child:
-                        homeController.characterData.value.characters!.length >
+                        homeController.characterList!.length >
                                 0
                             ? ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: homeController
-                                    .characterData.value.characters!.length,
+                                    .characterList!.length,
                                 itemBuilder: (context, index) {
                                   return ListTileRow(
-                                      data: homeController.characterData.value
-                                          .characters![index],
+                                      data: homeController.characterList![index],
                                       image:
                                           "https://i.pravatar.cc/150?img=${index + 1}");
                                 })

@@ -18,6 +18,7 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
     // TODO: implement initState
     tabController = TabController(length: 3, vsync: this);
     // tabController.animateTo(2);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,13 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
               ],
             )
         ),
-        title: const Text('Home',style: TextStyle(color: Colors.white),),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+             Text('Home',style: TextStyle(color: Colors.white),),
+             Text('Refresh',style: TextStyle(color: Colors.black),)
+          ],
+        ),
         backgroundColor: Colors.blue,
       ),
       body: TabBarView(

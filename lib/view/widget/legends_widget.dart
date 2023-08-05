@@ -14,13 +14,13 @@ class LegendsWidget extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            DropDownWidget(),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (context,index){
-                  return ListTileRow();
-                })
+           Expanded(
+             flex: 1,
+             child:  DropDownWidget(),),
+            Expanded(
+              flex: 6,
+              child: Center(child: Text("Legend Page")),
+            )
           ],
         ),
       ),
